@@ -1,0 +1,22 @@
+# Git
+.git
+.gitignore
+
+# Env & secrets
+.env*
+!.env.example
+
+# IDEs & editors
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build output
+**/node_modules
+**/dist
+**/build
