@@ -29,7 +29,7 @@ project-root/
 MYSQL_ROOT_PASSWORD=root
 MYSQL_DATABASE=dev_db
 DB_HOST=db
-REACT_APP_API_URL=http://localhost:3000
+REACT_APP_API_URL=localhost:3000
 ```
 
 ### `.env.production` (⚠️ Must be secured)
@@ -37,7 +37,7 @@ REACT_APP_API_URL=http://localhost:3000
 MYSQL_ROOT_PASSWORD= # inject this via a secret manager
 MYSQL_DATABASE=prod_db
 DB_HOST=db
-REACT_APP_API_URL=https://api.yourdomain.com
+REACT_APP_API_URL=api.yourdomain.com
 ```
 
 **💡 Best Practices:**
