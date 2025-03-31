@@ -1,19 +1,21 @@
-import { Route, RouteProps, Redirect } from "react-router";
 import React from "react";
-import useSession from 'react-session-hook';
+import { Route, PathRouteProps, Navigate } from "react-router-dom";
+import { useSession } from "../../contexts/SessionContext";
 
+interface PrivateRouteProps extends PathRouteProps {
+  children: JSX.Element;
+}
 
-export function PrivateRoute({ children, ...rest }: RouteProps): JSX.Element {
+export function PrivateRoute({
+  children,
+  ...rest
+}: PrivateRouteProps): JSX.Element {
+  const session = useSession();
 
-    const session = useSession();
-    return (
-        <Route
-            {...rest}
-            render={() =>
-                session.isAuthenticated ? (
-                    children
-                ) : <Redirect to={"/login"}/>
-            }
-        />
-    );
+  return (
+    <Route
+      {...rest}
+      element={session.isAuthenticated ? children : <Navigate to="/login" />}
+    />
+  );
 }
