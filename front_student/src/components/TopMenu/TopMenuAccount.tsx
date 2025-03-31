@@ -1,4 +1,4 @@
-import React, { useState, Dispatch } from "react";
+import React, { useState, Dispatch, JSX } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/actions/account.actions";
 import { IStateType } from "../../store/models/root.interface";

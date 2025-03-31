@@ -1,4 +1,3 @@
-// src/components/Admin/Admin.tsx
 import { Fragment } from "react";
 import Notifications from "../../common/components/Notification";
 import LeftMenu from "../LeftMenu/LeftMenu";
