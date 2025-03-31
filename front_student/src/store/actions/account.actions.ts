@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { addNotification } from "./notifications.action";
 
@@ -7,7 +7,7 @@ export const REGISTER: string = "REGISTER";
 export const LOG_OUT: string = "LOG_OUT";
 
 const instance = axios.create({
-  baseURL: "http://" + process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL,
   timeout: 5000,
   headers: {},
 });
@@ -21,10 +21,9 @@ export function me(): any {
         },
       });
       return dispatch({ type: LOG_IN, email: response.data.username });
-    } catch (e) {
-      const error = e as AxiosError;
-      if (error.response === undefined) {
-        return dispatch(addNotification("Error", error.message));
+    } catch (e: any) {
+      if (e.response === undefined) {
+        return dispatch(addNotification("Error", e.message));
       }
       return dispatch(addNotification("Error", "Session expired"));
     }
@@ -40,12 +39,11 @@ export function login(email: string, password: string): any {
       });
       Cookies.set("token", response.data.token);
       return dispatch({ type: LOG_IN, email: email });
-    } catch (e) {
-      const error = e as AxiosError;
-      if (error.response === undefined) {
-        return dispatch(addNotification("Error", error.message));
+    } catch (e: any) {
+      if (e.response === undefined) {
+        return dispatch(addNotification("Error", e.message));
       }
-      return dispatch(addNotification("Error", error.response.data));
+      return dispatch(addNotification("Error", e.response.data));
     }
   };
 }
@@ -60,18 +58,17 @@ export function register(email: string, password: string): any {
 
       dispatch(addNotification("Success", response.data));
       return dispatch({ type: REGISTER });
-    } catch (e) {
-      const error = e as AxiosError;
-      if (error.response === undefined) {
-        return dispatch(addNotification("Error", error.message));
+    } catch (e: any) {
+      if (e.response === undefined) {
+        return dispatch(addNotification("Error", e.message));
       }
-      console.log(error.response.data);
-      if (error.response.data.length !== undefined) {
+      console.log(e.response.data);
+      if (e.response.data.length !== undefined) {
         return dispatch(
-          addNotification("Error", error.response.data[0].constraints.length)
+          addNotification("Error", e.response.data[0].constraints.length)
         );
       }
-      return dispatch(addNotification("Error", error.response.data));
+      return dispatch(addNotification("Error", e.response.data));
     }
   };
 }

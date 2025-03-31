@@ -1,11 +1,10 @@
-import React, { Fragment } from "react";
+// src/components/Admin/Admin.tsx
+import { Fragment } from "react";
+import Notifications from "../../common/components/Notification";
 import LeftMenu from "../LeftMenu/LeftMenu";
 import TopMenu from "../TopMenu/TopMenu";
-import { Routes, Route } from "react-router-dom";
-import Users from "../Users/Users";
-import Home from "../Home/Home";
-import Notifications from "../../common/components/Notification";
-import { PrivateRoute } from "../../common/components/PrivateRoute";
+import { Outlet } from "react-router-dom";
+import React from "react";
 
 const Admin: React.FC = () => {
   return (
@@ -16,24 +15,7 @@ const Admin: React.FC = () => {
         <div id="content">
           <TopMenu />
           <div className="container-fluid">
-            <Routes>
-              <Route
-                path="/users"
-                element={
-                  <PrivateRoute>
-                    <Users />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/"
-                element={
-                  <PrivateRoute>
-                    <Home />
-                  </PrivateRoute>
-                }
-              />
-            </Routes>
+            <Outlet />
           </div>
         </div>
       </div>

@@ -1,15 +1,8 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import { useSession } from "../../contexts/SessionContext";
+import { Navigate, RouteProps } from "react-router-dom";
 
-interface PrivateComponentProps {
-  children: React.ReactNode;
+export function PrivateComponent({ children }: RouteProps): any {
+  const session = useSession();
+  return session.isAuthenticated ? children : <Navigate to={"/login"} />;
 }
-
-export const PrivateComponent: React.FC<PrivateComponentProps> = ({
-  children,
-}) => {
-  const { isAuthenticated } = useSession();
-
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
-};

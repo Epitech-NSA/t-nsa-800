@@ -1,8 +1,9 @@
+// PrivateRoute.tsx
 import React from "react";
-import { Route, PathRouteProps, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useSession } from "../../contexts/SessionContext";
 
-interface PrivateRouteProps extends PathRouteProps {
+interface PrivateRouteProps {
   children: JSX.Element;
 }
 
@@ -10,12 +11,11 @@ export function PrivateRoute({
   children,
   ...rest
 }: PrivateRouteProps): JSX.Element {
-  const session = useSession();
+  const { isAuthenticated } = useSession();
 
-  return (
-    <Route
-      {...rest}
-      element={session.isAuthenticated ? children : <Navigate to="/login" />}
-    />
-  );
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
 }

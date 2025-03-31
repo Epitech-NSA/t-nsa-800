@@ -1,4 +1,5 @@
 # 🧠 API_BACK_T_NSA
+
 ## 🚀 Prerequisites
 
 - Docker & Docker Compose installed
@@ -25,22 +26,25 @@ project-root/
 ## ⚙️ Environment Configuration
 
 ### `.env.dev` (Development)
+
 ```env
 MYSQL_ROOT_PASSWORD=root
 MYSQL_DATABASE=dev_db
 DB_HOST=db
-REACT_APP_API_URL=localhost:3000
+REACT_APP_API_URL=http://localhost:3000
 ```
 
 ### `.env.production` (⚠️ Must be secured)
+
 ```env
 MYSQL_ROOT_PASSWORD= # inject this via a secret manager
 MYSQL_DATABASE=prod_db
 DB_HOST=db
-REACT_APP_API_URL=api.yourdomain.com
+REACT_APP_API_URL=http://api.yourdomain.com
 ```
 
 **💡 Best Practices:**
+
 - Never commit `.env.production` to version control
 - Use secret managers like Vault, Doppler, AWS Secrets Manager, ..etc
 - Always use a strong password for `MYSQL_ROOT_PASSWORD`
@@ -48,6 +52,7 @@ REACT_APP_API_URL=api.yourdomain.com
 ---
 
 ## 🐳 Running the Project with Docker
+
 ### ✅ Development
 
 ```bash
@@ -56,6 +61,7 @@ docker-compose --env-file ../../.env.dev up --build
 ```
 
 Access:
+
 - Express API: http://localhost:3000
 - React UI: http://localhost:8080
 - Swagger Stats (monitoring): http://localhost:3000/swagger-stats/ui
@@ -70,6 +76,7 @@ docker compose --env-file ../../.env.prod up --build -d
 ---
 
 ## 🧱 Creating an Admin User via Migration
+
 ### 📥 After cloning the project:
 
 ```bash
@@ -97,8 +104,8 @@ public async up(queryRunner: QueryRunner): Promise<any> {
 And at the top of the file, add:
 
 ```ts
-import {getRepository, MigrationInterface, QueryRunner} from "typeorm";
-import {User} from "../entity/User";
+import { getRepository, MigrationInterface, QueryRunner } from "typeorm";
+import { User } from "../entity/User";
 ```
 
 > ✅ **Security Tip:**
@@ -108,4 +115,4 @@ import {User} from "../entity/User";
 
 ## 📬 Contact / Maintainer
 
-For questions, support, or contributions, reach out to the project maintainer.
+For questions, support, reach out to the project maintainer.
