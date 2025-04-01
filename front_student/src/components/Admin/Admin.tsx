@@ -1,14 +1,11 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
+import Notifications from "../../common/components/Notification";
 import LeftMenu from "../LeftMenu/LeftMenu";
 import TopMenu from "../TopMenu/TopMenu";
-import { Switch } from "react-router";
-import Users from "../Users/Users";
-import Home from "../Home/Home";
-import Notifications from "../../common/components/Notification";
-import {PrivateRoute} from "../../common/components/PrivateRoute";
+import { Outlet } from "react-router-dom";
+import React from "react";
 
 const Admin: React.FC = () => {
-
   return (
     <Fragment>
       <Notifications />
@@ -17,10 +14,7 @@ const Admin: React.FC = () => {
         <div id="content">
           <TopMenu />
           <div className="container-fluid">
-            <Switch>
-              <PrivateRoute exact path="/users"><Users /></PrivateRoute>
-              <PrivateRoute exact path="/"><Home /></PrivateRoute>
-            </Switch>
+            <Outlet />
           </div>
         </div>
       </div>

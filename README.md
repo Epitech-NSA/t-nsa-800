@@ -23,24 +23,25 @@ project-root/
 ---
 
 ## ⚙️ Environment Configuration
-
 ### `.env.dev` (Development)
+
 ```env
 MYSQL_ROOT_PASSWORD=root
 MYSQL_DATABASE=dev_db
 DB_HOST=db
-REACT_APP_API_URL=localhost:3000
-```
+REACT_APP_API_URL=http://localhost:3000
 
 ### `.env.production` (⚠️ Must be secured)
+
 ```env
 MYSQL_ROOT_PASSWORD= # inject this via a secret manager
 MYSQL_DATABASE=prod_db
 DB_HOST=db
-REACT_APP_API_URL=api.yourdomain.com
+REACT_APP_API_URL=http://api.yourdomain.com
 ```
 
 **💡 Best Practices:**
+
 - Never commit `.env.production` to version control
 - Use secret managers like Vault, Doppler, AWS Secrets Manager, ..etc
 - Always use a strong password for `MYSQL_ROOT_PASSWORD`
@@ -97,8 +98,8 @@ public async up(queryRunner: QueryRunner): Promise<any> {
 And at the top of the file, add:
 
 ```ts
-import {getRepository, MigrationInterface, QueryRunner} from "typeorm";
-import {User} from "../entity/User";
+import { getRepository, MigrationInterface, QueryRunner } from "typeorm";
+import { User } from "../entity/User";
 ```
 
 > ✅ **Security Tip:**
@@ -108,4 +109,4 @@ import {User} from "../entity/User";
 
 ## 📬 Contact / Maintainer
 
-For questions, support, or contributions, reach out to the project maintainer.
+For questions, support, reach out to the project maintainer.
