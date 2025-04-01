@@ -1,5 +1,4 @@
 # 🧠 API_BACK_T_NSA
-
 ## 🚀 Prerequisites
 
 - Docker & Docker Compose installed
@@ -24,7 +23,6 @@ project-root/
 ---
 
 ## ⚙️ Environment Configuration
-
 ### `.env.dev` (Development)
 
 ```env
@@ -32,7 +30,6 @@ MYSQL_ROOT_PASSWORD=root
 MYSQL_DATABASE=dev_db
 DB_HOST=db
 REACT_APP_API_URL=http://localhost:3000
-```
 
 ### `.env.production` (⚠️ Must be secured)
 
@@ -52,7 +49,6 @@ REACT_APP_API_URL=http://api.yourdomain.com
 ---
 
 ## 🐳 Running the Project with Docker
-
 ### ✅ Development
 
 ```bash
@@ -61,7 +57,6 @@ docker-compose --env-file ../../.env.dev up --build
 ```
 
 Access:
-
 - Express API: http://localhost:3000
 - React UI: http://localhost:8080
 - Swagger Stats (monitoring): http://localhost:3000/swagger-stats/ui
@@ -76,7 +71,6 @@ docker compose --env-file ../../.env.prod up --build -d
 ---
 
 ## 🧱 Creating an Admin User via Migration
-
 ### 📥 After cloning the project:
 
 ```bash
