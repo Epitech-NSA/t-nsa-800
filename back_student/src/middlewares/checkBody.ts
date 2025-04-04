@@ -1,17 +1,16 @@
-import {NextFunction, Request, Response} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export const validateEmpty = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  if (
-    req.body === undefined ||
-    req.body.username === undefined ||
-    req.body.password === undefined
-  ) {
-    return res.status(400).send();
-  }
-  // if string value is longer than 0, continue with next function in route
-  next();
+export const validateFields = (fields: string[]) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    const missingFields = fields.filter((field) => !req.body?.[field]);
+
+    if (missingFields.length > 0) {
+      res.status(400).json({
+        message: `Missing fields: ${missingFields.join(', ')}`,
+      });
+      return;
+    }
+
+    next();
+  };
 };
