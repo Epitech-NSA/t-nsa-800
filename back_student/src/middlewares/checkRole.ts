@@ -1,27 +1,28 @@
-import {NextFunction, Request, Response} from 'express';
-import {getRepository} from 'typeorm';
-
-import {User} from '../entity/User';
+import { Request, Response, NextFunction } from 'express';
+import { User } from '../entity/User';
+import { AppDataSource } from '../config/data-source';
 
 export const checkRole = (roles: string[]) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    // Get the user ID from previous midleware
-    const id = res.locals.jwtPayload.userId;
+  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const id = res.locals.jwtPayload?.userId;
 
-    // Get user role from the database
-    const userRepository = getRepository(User);
-    let user: User;
-    try {
-      user = await userRepository.findOneOrFail(id);
-    } catch (id) {
-      res.status(401).send();
+    if (!id) {
+      res.status(401).send('Missing user ID in token');
+      return;
     }
 
-    // Check if array of authorized roles includes the user's role
-    if (roles.indexOf(user.role) > -1) {
+    const userRepository = AppDataSource.getRepository(User);
+    try {
+      const user = await userRepository.findOneOrFail({ where: { id } });
+
+      if (!roles.includes(user.role)) {
+        res.status(403).send('Insufficient permissions');
+        return;
+      }
+
       next();
-    } else {
-      res.status(401).send();
+    } catch (error) {
+      res.status(401).send('User not found');
     }
   };
 };

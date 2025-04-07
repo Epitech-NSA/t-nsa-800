@@ -2,15 +2,15 @@
 
 services:
   db:
-    image: mysql:5.7
+    image: mariadb:11.3
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
     ports:
       - "3306:3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mariadb
     networks:
       - backend
 
@@ -47,7 +47,6 @@ volumes:
 networks:
   backend:
     driver: bridge
-
 # ⚠️ IMPORTANT: Create React App (CRA) environment variable behavior
 # ------------------------------------------------------------------
 # CRA does NOT read environment variables passed via `environment:` at runtime.
