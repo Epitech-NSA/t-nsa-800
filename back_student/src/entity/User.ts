@@ -1,23 +1,22 @@
-import  {compareSync, hashSync} from 'bcryptjs';
-import {IsNotEmpty, Length} from 'class-validator';
+import { compareSync, hashSync } from 'bcryptjs';
+import { IsNotEmpty, Length } from 'class-validator';
 import { Exclude } from 'class-transformer';
 import {
-  Column,
-  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  Unique,
+  Column,
+  CreateDateColumn,
   UpdateDateColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity()
 @Unique(['username'])
 export class User {
-
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column()
+  @Column({ length: 20 })
   @Length(4, 20)
   public username: string;
 
@@ -30,19 +29,17 @@ export class User {
   @IsNotEmpty()
   public role: string;
 
-  @Column()
   @CreateDateColumn()
   public createdAt: Date;
 
-  @Column()
   @UpdateDateColumn()
   public updatedAt: Date;
 
-  public hashPassword() {
+  public hashPassword(): void {
     this.password = hashSync(this.password, 8);
   }
 
-  public checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+  public checkIfUnencryptedPasswordIsValid(unencryptedPassword: string): boolean {
     return compareSync(unencryptedPassword, this.password);
   }
 }
