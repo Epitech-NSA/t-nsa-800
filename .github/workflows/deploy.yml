@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - fix/pipeline-for-watchtower
 
 jobs:
   build-and-push:
@@ -20,18 +21,27 @@ jobs:
           password: ${{ secrets.NEXUS_PASSWORD }}
           registry: ${{ secrets.NEXUS_DOMAIN }}
 
-      - name: Build Frontend Docker image
+      - name: Build and tag Frontend image
         run: |
-          docker build --build-arg REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:${{ github.sha }} ./front_student
+          docker build \
+            --build-arg REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} \
+            -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:${{ github.sha }} \
+            -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:latest \
+            ./front_student
 
-      - name: Push Frontend Docker image
+      - name: Push Frontend images (SHA + latest)
         run: |
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:${{ github.sha }}
+          docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:latest
 
-      - name: Build Backend Docker image
+      - name: Build and tag Backend image
         run: |
-          docker build -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }} ./back_student
+          docker build \
+            -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }} \
+            -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:latest \
+            ./back_student
 
-      - name: Push Backend Docker image
+      - name: Push Backend images (SHA + latest)
         run: |
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }}
+          docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:latest
