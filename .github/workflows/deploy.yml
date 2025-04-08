@@ -1,0 +1,37 @@
+name: Build and Push Docker Images to Nexus
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Nexus Docker registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.NEXUS_USERNAME }}
+          password: ${{ secrets.NEXUS_PASSWORD }}
+          registry: ${{ secrets.NEXUS_DOMAIN }}
+
+      - name: Build Frontend Docker image
+        run: |
+          docker build --build-arg REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:${{ github.sha }} ./front_student
+
+      - name: Push Frontend Docker image
+        run: |
+          docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:${{ github.sha }}
+
+      - name: Build Backend Docker image
+        run: |
+          docker build -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }} ./back_student
+
+      - name: Push Backend Docker image
+        run: |
+          docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }}
