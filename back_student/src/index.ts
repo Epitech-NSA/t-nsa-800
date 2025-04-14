@@ -8,6 +8,7 @@ import swaggerStats from 'swagger-stats';
 import swaggerUi from 'swagger-ui-express';
 import routes from './routes';
 import {AppDataSource} from './config/data-source';
+import {loggerMiddelware} from "./middlewares/loggerMiddelware";
 
 const startServer = async () => {
   try {
@@ -21,6 +22,9 @@ const startServer = async () => {
     app.use(helmet()); // Secure HTTP headers
     app.use(express.json()); // Parse JSON bodies
     app.use(express.urlencoded({extended: true})); // Parse URL-encoded bodies
+
+    // Logger Middelware
+    app.use(loggerMiddelware)
 
     // morgan setup for logging
     morgan.token('header-auth', (req) => req.headers['auth']?.toString() || '');
