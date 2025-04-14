@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - fix/pipeline-for-watchtower
 
 jobs:
   build-and-push:
