@@ -15,8 +15,7 @@ services:
       - backend
 
   api:
-    build:
-      context: ../../back_student
+    image: nexus-repository.axel-martin.fr/t-nsa-800/back_student:latest
     restart: unless-stopped
     environment:
       NODE_ENV: ${NODE_ENV}
@@ -25,19 +24,20 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - backend
 
   front:
-    build:
-      context: ../../front_student
-      args:
-        REACT_APP_API_URL: ${REACT_APP_API_URL}
+    image: nexus-repository.axel-martin.fr/t-nsa-800/front_student:latest
     restart: unless-stopped
     ports:
       - "8080:80"
     depends_on:
       - api
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - backend
 
