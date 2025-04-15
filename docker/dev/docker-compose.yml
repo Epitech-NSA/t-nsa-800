@@ -5,8 +5,8 @@ services:
     image: mariadb:11.3
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
     volumes:
@@ -21,6 +21,10 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
       DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_DATABASE: ${MYSQL_DATABASE}
+      WINSTON_SOURCE_TOKEN: ${WINSTON_SOURCE_TOKEN}
+      WINSTON_INVESTING_HOST: ${WINSTON_INVESTING_HOST}
     ports:
       - "3000:3000"
     depends_on:
