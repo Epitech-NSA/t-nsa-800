@@ -30,6 +30,9 @@ MYSQL_ROOT_PASSWORD=root
 MYSQL_DATABASE=dev_db
 DB_HOST=db
 REACT_APP_API_URL=http://localhost:3000
+WINSTON_SOURCE_TOKEN=
+WINSTON_INVESTING_HOST=
+```
 
 ### `.env.production` (⚠️ Must be secured)
 
@@ -38,6 +41,8 @@ MYSQL_ROOT_PASSWORD= # inject this via a secret manager
 MYSQL_DATABASE=prod_db
 DB_HOST=db
 REACT_APP_API_URL=http://api.yourdomain.com
+WINSTON_SOURCE_TOKEN=
+WINSTON_INVESTING_HOST=
 ```
 
 **💡 Best Practices:**

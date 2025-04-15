@@ -20,6 +20,10 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
       DB_HOST: ${DB_HOST}
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_DATABASE: ${MYSQL_DATABASE}
+      WINSTON_SOURCE_TOKEN: ${WINSTON_SOURCE_TOKEN}
+      WINSTON_INVESTING_HOST: ${WINSTON_INVESTING_HOST}
     ports:
       - "3000:3000"
     depends_on:

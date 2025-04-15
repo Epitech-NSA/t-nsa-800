@@ -1,19 +1,19 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import 'reflect-metadata';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerStats from 'swagger-stats';
 import swaggerUi from 'swagger-ui-express';
 import routes from './routes';
 import {AppDataSource} from './config/data-source';
+import {loggerMiddelware} from "./middlewares/loggerMiddelware";
+import {winstonLogger} from "./logger";
 
 const startServer = async () => {
   try {
     await AppDataSource.initialize();
-    console.log('Database connected successfully');
-
+    winstonLogger.info('Database connected successfully')
     const app = express();
 
     // Middleware
@@ -22,25 +22,8 @@ const startServer = async () => {
     app.use(express.json()); // Parse JSON bodies
     app.use(express.urlencoded({extended: true})); // Parse URL-encoded bodies
 
-    // morgan setup for logging
-    morgan.token('header-auth', (req) => req.headers['auth']?.toString() || '');
-    morgan.token('body', (req: any) => JSON.stringify(req.body));
-
-    // Log requests
-    app.use(
-      morgan('[:date[web]] Started :method :url for :remote-addr', {
-        immediate: true,
-      }),
-    );
-    app.use(
-      morgan('[:date[web]] Started with token :header-auth', {immediate: true}),
-    );
-    app.use(morgan('[:date[web]] Started with body :body', {immediate: true}));
-    app.use(
-      morgan(
-        '[:date[iso]] Completed :status :res[content-length] in :response-time ms',
-      ),
-    );
+    // Logger Middelware
+    app.use(loggerMiddelware)
 
     // Use swagger-stats for API metrics
     app.use(swaggerStats.getMiddleware({}));
@@ -64,10 +47,11 @@ const startServer = async () => {
 
     // Start the server
     app.listen(3000, () => {
-      console.log('Server started on port 3000!');
+      winstonLogger.info('Server started on port 3000!')
+
     });
   } catch (error) {
-    console.error('Database connection error:', error);
+    winstonLogger.error('Database connection error:', error);
   }
 };
 
