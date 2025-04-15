@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - feat/tn8-19
 
 jobs:
   build-and-push:
