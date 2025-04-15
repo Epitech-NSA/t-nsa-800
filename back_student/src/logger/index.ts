@@ -3,8 +3,8 @@ import {Logtail} from "@logtail/node";
 import {LogtailTransport} from "@logtail/winston";
 
 // TODO : mettre des variables d'environnement
-const sourceToken = "W95GkQopRtqPJaqP7yQoq2Yt"
-const ingestingHost = "s1267183.eu-nbg-2.betterstackdata.com"
+const sourceToken = process.env.WINSTON_SOURCE_TOKEN
+const ingestingHost =  process.env.WINSTON_INVESTING_HOST
 
 const logtail = new Logtail(sourceToken,
     {
