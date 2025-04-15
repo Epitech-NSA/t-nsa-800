@@ -3,13 +3,16 @@ import {winstonLogger} from "../logger";
 export const loggerMiddelware = (req: Request, res: Response, next: NextFunction) => {
 
     const start = Date.now();
+
+    winstonLogger.info(`[${new Date().toISOString()}] Started ${req.method} ${req.path} for ${req}`)
+    winstonLogger.info(`[${new Date().toISOString()}] Started with token`, req.headers['auth'])
+
     res.on('finish', () => {
         const duration = Date.now() - start;
-        winstonLogger.info(`[${new Date().toISOString()}] ${req.method} ${req.path} => ${res.statusCode} (${duration}ms)`);
-
         if (res.statusCode >= 400) {
-            winstonLogger.error("Request on Error : ", req)
+            winstonLogger.error("Started with token body ", req.body)
         }
+        winstonLogger.info(`[${new Date().toISOString()}] Completed ${res.statusCode} in (${duration}ms)`);
     });
     next();
 };
