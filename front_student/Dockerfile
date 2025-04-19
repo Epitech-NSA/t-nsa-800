@@ -10,4 +10,5 @@ RUN yarn build
 # RUN ls -lR
 
 FROM nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/build /usr/share/nginx/html

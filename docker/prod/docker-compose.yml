@@ -36,14 +36,23 @@ services:
   front:
     image: nexus-repository.axel-martin.fr/t-nsa-800/front_student:latest
     restart: unless-stopped
+    secrets:
+      - ssl_cert
+      - ssl_key
     ports:
-      - "8080:80"
+      - "80:80"
     depends_on:
       - api
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
       - backend
+
+secrets:
+  ssl_cert:
+    file: ./certs/cert.pem
+  ssl_key:
+    file: ./certs/privkey.pem
 
 volumes:
   db_data:
