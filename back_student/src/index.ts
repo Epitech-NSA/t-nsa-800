@@ -29,7 +29,7 @@ const startServer = async () => {
     app.use(swaggerStats.getMiddleware({}));
 
     // Set all routes from the routes folder
-    app.use('/', routes);
+    app.use('/api', routes);
 
     // Set up Swagger API docs
     const options = {
