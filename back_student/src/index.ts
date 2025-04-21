@@ -43,7 +43,7 @@ const startServer = async () => {
       apis: ['**/routes/auth.ts', '**/controller/Admin/*.ts'],
     };
     const specs = swaggerJSDoc(options);
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
     // Start the server
     app.listen(3000, () => {

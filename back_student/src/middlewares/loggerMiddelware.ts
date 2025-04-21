@@ -11,7 +11,7 @@ export const loggerMiddelware = (req: Request, res: Response, next: NextFunction
     res.on('finish', () => {
         const duration = Date.now() - start;
         if (res.statusCode >= 400) {
-            winstonLogger.error("Started with token body ", req.body)
+            winstonLogger.error("Error with body ", req.body)
         }
         winstonLogger.info(`[${new Date().toISOString()}] Completed ${res.statusCode} in (${duration}ms)`);
     });
