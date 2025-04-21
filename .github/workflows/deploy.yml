@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - chore/tn8-23
 
 jobs:
   build-and-push:
