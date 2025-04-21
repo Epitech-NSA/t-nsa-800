@@ -47,8 +47,7 @@ services:
       - backend
     volumes:
       - /root/utils/nginx.conf:/etc/nginx/nginx.conf:ro
-      - /root/certs/cert.pem:/run/secrets/ssl_cert:ro
-      - /root/certs/key.pem:/run/secrets/ssl_key:ro
+      - /root/utils/certs:/certs:ro
 volumes:
   db_data:
 
