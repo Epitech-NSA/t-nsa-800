@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feat/trigger-pipeline
 
 jobs:
   build-and-push:
