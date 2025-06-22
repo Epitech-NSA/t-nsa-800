@@ -24,7 +24,7 @@ jobs:
       - name: Build and tag Frontend image
         run: |
           docker build \
-            --build-arg REACT_APP_API_URL=https://front-cloud.flopify.fr/api \
+            --build-arg REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} \
             -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:${{ github.sha }} \
             -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student:latest \
             ./front_student
