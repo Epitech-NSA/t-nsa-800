@@ -48,14 +48,14 @@ jobs:
 
       - name: Notify VM webhook about new images
         run: |
-          curl -X POST https://cloud.flopify.fr/ \
+          curl -X POST https://redeploy-cloud.flopify.fr/ \
             -H "Content-Type: application/json" \
             -d '{
               "name": "${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student",
               "tag": "latest"
             }'
 
-          curl -X POST https://cloud.flopify.fr/ \
+          curl -X POST https://redeploy-cloud.flopify.fr/ \
             -H "Content-Type: application/json" \
             -d '{
               "name": "${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student",
