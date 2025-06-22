@@ -45,3 +45,19 @@ jobs:
         run: |
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }}
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:latest
+
+      - name: Notify VM webhook about new images
+        run: |
+          curl -X POST https://cloud.flopify.fr/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "name": "${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/front_student",
+              "tag": "latest"
+            }'
+
+          curl -X POST https://cloud.flopify.fr/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "name": "${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student",
+              "tag": "latest"
+            }'
