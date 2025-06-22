@@ -41,7 +41,7 @@ jobs:
             -t ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:latest \
             ./back_student
 
-      - name: Push Backend images (SHA + latest)
+      - name: Push Backend images (SHA + latest) 
         run: |
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }}
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:latest
