@@ -46,7 +46,7 @@ jobs:
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:${{ github.sha }}
           docker push ${{ secrets.NEXUS_DOMAIN }}/${{ secrets.NEXUS_REPOSITORY }}/back_student:latest
 
-      - name: Notify VM webhook about new images
+      - name: Notify VM about new images
         run: |
           curl -X POST https://redeploy-cloud.flopify.fr/ \
             -H "Content-Type: application/json" \
